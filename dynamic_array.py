@@ -51,6 +51,21 @@ class DynamicArray:
         # TC : O(1)
         return self.array.fetch_array()
 
+    def get_min_value(self):
+        # TC : O(1)
+        # TODO: @Chinthan
+        pass
+
+    def get_max_value(self):
+        # TC : O(1)
+        # TODO: @Chinthan
+        pass
+
+    def get_occurance_of_value(self, value):
+        # TC : O(N)
+        # TODO: @Chinthan
+        pass
+
 def main():
     # Example usage of DynamicArray
 
