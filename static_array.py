@@ -40,6 +40,7 @@ class StaticArray:
             return self.array[index]
         except Exception as error:
             print(f"Error while fetching the elements from index {index}, Error:", str(error))
+            return None
 
     def is_empty(self):
         if self.occupied_size == 0:

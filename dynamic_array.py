@@ -26,6 +26,9 @@ class DynamicArray:
     def delete(self, index):
         self.array.delete(index)
 
+    def get(self, index):
+        return self.array.get(index)
+
     def clear_array(self):
         for i in range(self.current_index):
             self.array.insert(None, i)
@@ -35,6 +38,9 @@ class DynamicArray:
 
     def is_empty(self):
         return self.array.is_empty()
+
+    def fetch_array(self):
+        return self.array.fetch_array()
 
 def main():
     # Example usage of DynamicArray
