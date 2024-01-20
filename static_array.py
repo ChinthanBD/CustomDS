@@ -1,9 +1,10 @@
-class CustomArray:
+class StaticArray:
     size: object
 
     def __init__(self, size):
         self.size = size
         self.array = [None] * size
+        self.occupied_size = 0
         
     def insert(self, element, index):
         try:
@@ -12,6 +13,7 @@ class CustomArray:
             if self.size <= index < 0:
                 raise IndexError("Given array index is out of range")
             self.array[index] = element
+            self.occupied_size += 1
 
         except Exception as error:
             print(f"Error occurred while inserting the element {element} to array, Error:", str(error))
@@ -24,6 +26,8 @@ class CustomArray:
                 raise IndexError("Given array index is out of range")
 
             self.array[index] = None
+            self.occupied_size -= 1
+
         except Exception as error:
             print(f"Error occurred while deleting the element from index:{index} of array, Error:", str(error))
 
@@ -38,25 +42,24 @@ class CustomArray:
             print(f"Error while fetching the elements from index {index}, Error:", str(error))
 
     def is_empty(self):
-        for i in range(len(self.array)):
-            if self.array[i]:
-                return False
-        return True
+        if self.occupied_size == 0:
+            return True
+        return False
 
     def is_full(self):
-        for i in range(len(self.array)):
-            if not self.array[i]:
-                return False
-        return True
+        if self.occupied_size == self.size:
+            return True
+        return False
 
     def fetch_array(self):
         return self.array
+
 
 def main():
     # Example usage of CustomArray
 
     # Create an instance of CustomArray with a size of 5
-    custom_array = CustomArray(size=5)
+    custom_array = StaticArray(size=5)
 
     # Insert elements into the array
     custom_array.insert(element="A", index=0)
@@ -81,6 +84,7 @@ def main():
     # Check if the array is empty or full
     print(f"Is the array empty? {custom_array.is_empty()}")
     print(f"Is the array full? {custom_array.is_full()}")
+
 
 if __name__ == "__main__":
     main()
