@@ -2,11 +2,13 @@ class StaticArray:
     size: object
 
     def __init__(self, size):
+        # TC: O(N)
         self.size = size
         self.array = [None] * size
         self.occupied_size = 0
         
     def insert(self, element, index):
+        # TC: O(1)
         try:
             if type(index) is not int:
                 raise TypeError("Type of the index provided is not int")
@@ -19,6 +21,7 @@ class StaticArray:
             print(f"Error occurred while inserting the element {element} to array, Error:", str(error))
 
     def delete(self, index):
+        # TC: O(1)
         try:
             if type(index) is not int:
                 raise TypeError("Type of the index provided is not int")
@@ -32,6 +35,7 @@ class StaticArray:
             print(f"Error occurred while deleting the element from index:{index} of array, Error:", str(error))
 
     def get(self, index):
+        # TC : O(1)
         try:
             if type(index) is not int:
                 raise TypeError("Type of the index provided is not int")
@@ -43,16 +47,19 @@ class StaticArray:
             return None
 
     def is_empty(self):
+        # TC : O(1)
         if self.occupied_size == 0:
             return True
         return False
 
     def is_full(self):
+        # TC : O(1)
         if self.occupied_size == self.size:
             return True
         return False
 
     def fetch_array(self):
+        # TC : O(1)
         return self.array
 
 

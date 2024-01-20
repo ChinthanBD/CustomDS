@@ -6,17 +6,21 @@ class HashSet:
         self.hash_set = DynamicArray(11)
 
     def hashed(self, value):
+        # TC : O(1)
         # For value range 1-10, your method should return
         # unique value with which we can identify the element
         return value % 100000007
 
     def add_element(self, element):
+        # TC : O(1)
         self.hash_set.insert(element, self.hashed(element))
 
     def delete_element(self, element):
+        # TC : O(1)
         self.hash_set.delete(self.hashed(element))
 
     def element_exist(self, element):
+        # TC : O(1)
         try:
             if self.hash_set.get(self.hashed(element)):
                 return True
@@ -25,6 +29,7 @@ class HashSet:
             return False
 
     def fetch_all(self):
+        # TC : O(N)
         output = []
         for element in self.hash_set.fetch_array():
             if element:

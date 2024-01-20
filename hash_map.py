@@ -6,25 +6,30 @@ class HashMap:
         self.array = DynamicArray(10)
 
     def insert(self, key, value):
+        # TC : O(1)
         element = Node(key, value)
         self.array.insert(element, self.hashed(key))
 
     def delete(self, key):
+        # TC : O(1)
         if self.array.get(self.hashed(key)):
             self.array.delete(self.hashed(key))
         else:
             raise KeyError(f"Deletion at {key} is not possible because {key} doesn't exist")
 
     def get(self, key):
+        # TC : O(1)
         if self.array.get(self.hashed(key)):
             return self.array.get(self.hashed(key)).value
         else:
             raise KeyError(f"Fetching element with {key} is not possible because {key} doesn't exist")
 
     def fetch_all(self):
-        return [{key : value} for key,value in zip(self.fetch_all_keys(), self.fetch_all_values())]
+        # TC : O(N)
+        return [{key: value} for key, value in zip(self.fetch_all_keys(), self.fetch_all_values())]
 
     def fetch_all_keys(self):
+        # TC : O(N)
         key_list = []
         for node in self.array.fetch_array():
             if isinstance(node, Node):
@@ -32,13 +37,16 @@ class HashMap:
         return key_list
 
     def fetch_all_values(self):
+        # TC : O(N)
         value_list = []
         for key in self.fetch_all_keys():
             node = self.array.get(self.hashed(key))
             value_list.append(node.value)
         return value_list
 
-    def hashed(self, value):
+    @staticmethod
+    def hashed(value):
+        # TC : O(1)
         # For value range 1-10, your method should return
         # unique value with which we can identify the element
         return value % 100000007

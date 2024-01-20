@@ -8,6 +8,7 @@ class DynamicArray:
         self.current_index = -1
 
     def append(self, element):
+        # TC : O(N)
         if self.array.is_full():
             new_array = StaticArray(2 * self.size)
             for i in range(self.size):
@@ -21,25 +22,32 @@ class DynamicArray:
             self.array.insert(element, self.current_index)
 
     def insert(self, element, index):
+        # TC : O(1)
         self.array.insert(element, index)
 
     def delete(self, index):
+        # TC : O(1)
         self.array.delete(index)
 
     def get(self, index):
+        # TC : O(1)
         return self.array.get(index)
 
     def clear_array(self):
+        # TC : O(N)
         for i in range(self.current_index):
             self.array.insert(None, i)
 
     def is_full(self):
+        # TC : O(1)
         return self.array.is_full()
 
     def is_empty(self):
+        # TC : O(1)
         return self.array.is_empty()
 
     def fetch_array(self):
+        # TC : O(1)
         return self.array.fetch_array()
 
 def main():
