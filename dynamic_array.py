@@ -3,6 +3,7 @@ from static_array import StaticArray
 
 class DynamicArray:
     def __init__(self, size=10):
+        # TC : O(N)
         self.size = size
         self.array = StaticArray(size)
         self.current_index = -1
