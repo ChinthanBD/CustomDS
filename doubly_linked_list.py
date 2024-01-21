@@ -14,7 +14,7 @@ class DoublyLinkedList:
             temp = temp.next_node
         return temp
 
-    def insert_node(self, value):
+    def add_node(self, value):
         if self.head is None:
             self.head = Node(key=None, value=value, next_node=None, prev_node=None)
         else:
@@ -44,9 +44,9 @@ def main():
     doubly_linked_list = DoublyLinkedList()
 
     # Inserting nodes into the linked list
-    doubly_linked_list.insert_node(10)
-    doubly_linked_list.insert_node(20)
-    doubly_linked_list.insert_node(30)
+    doubly_linked_list.add_node(10)
+    doubly_linked_list.add_node(20)
+    doubly_linked_list.add_node(30)
 
     # Displaying the initial state of the linked list
     print("Doubly Linked List:")
