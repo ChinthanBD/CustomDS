@@ -53,18 +53,16 @@ class DynamicArray:
 
     def get_min_value(self):
         # TC : O(1)
-        # TODO: @Chinthan
-        pass
+        self.array.get_min_value()
 
     def get_max_value(self):
         # TC : O(1)
-        # TODO: @Chinthan
-        pass
+        return self.array.get_max_value()
 
     def get_occurance_of_value(self, value):
         # TC : O(N)
-        # TODO: @Chinthan
-        pass
+        return self.array.get_occurance_of_value(value)
+
 
 def main():
     # Example usage of DynamicArray
@@ -73,34 +71,46 @@ def main():
     dynamic_array = DynamicArray(size=5)
 
     # Append elements to the array
-    dynamic_array.append(element="A")
-    dynamic_array.append(element="B")
-    dynamic_array.append(element="C")
+    dynamic_array.append(element=10)
+    dynamic_array.append(element=20)
+    dynamic_array.append(element=30)
 
-    # Display the current state of the dynamic array
-    print("Dynamic Array after initial appends:", dynamic_array.array.fetch_array())
+    # Display the current state of the array
+    print("Array after appending elements:", dynamic_array.fetch_array())
+
+    # Check if the array is empty or full
+    print(f"Is the array empty? {dynamic_array.is_empty()}")
+    print(f"Is the array full? {dynamic_array.is_full()}")
+
+    # Fetch the minimum and maximum values
+    print(f"Minimum value in the array: {dynamic_array.get_min_value()}")
+    print(f"Maximum value in the array: {dynamic_array.get_max_value()}")
+
+    # Get the occurrence of a specific value
+    value_to_check = 20
+    occurrence_count = dynamic_array.get_occurance_of_value(value_to_check)
+    print(f"Occurrence count of {value_to_check}: {occurrence_count}")
 
     # Insert an element at a specific index
-    dynamic_array.insert(element="X", index=1)
+    index_to_insert = 1
+    dynamic_array.insert(element=15, index=index_to_insert)
 
     # Display the array after insertion
-    print("Dynamic Array after insertion at index 1:", dynamic_array.array.fetch_array())
+    print(f"Array after inserting element at index {index_to_insert}:", dynamic_array.fetch_array())
 
-    # Delete an element at a specific index
-    dynamic_array.delete(index=2)
+    # Delete an element from the array
+    index_to_delete = 2
+    dynamic_array.delete(index=index_to_delete)
 
     # Display the array after deletion
-    print("Dynamic Array after deletion at index 2:", dynamic_array.array.fetch_array())
-
-    # Check if the array is full or empty
-    print(f"Is the array full? {dynamic_array.is_full()}")
-    print(f"Is the array empty? {dynamic_array.is_empty()}")
+    print(f"Array after deleting element at index {index_to_delete}:", dynamic_array.fetch_array())
 
     # Clear the array
     dynamic_array.clear_array()
 
     # Display the array after clearing
-    print("Dynamic Array after clearing:", dynamic_array.array.fetch_array())
+    print("Array after clearing:", dynamic_array.fetch_array())
+
 
 if __name__ == "__main__":
     main()

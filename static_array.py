@@ -6,16 +6,22 @@ class StaticArray:
         self.size = size
         self.array = [None] * size
         self.occupied_size = 0
+        self.min_element = 9999999
+        self.max_element = -9999999
         
     def insert(self, element, index):
         # TC: O(1)
         try:
+
             if type(index) is not int:
                 raise TypeError("Type of the index provided is not int")
             if self.size <= index < 0:
                 raise IndexError("Given array index is out of range")
             self.array[index] = element
             self.occupied_size += 1
+            if element:
+                self.min_element = min(self.min_element, element)
+                self.max_element = max(self.max_element, element)
 
         except Exception as error:
             print(f"Error occurred while inserting the element {element} to array, Error:", str(error))
@@ -64,49 +70,59 @@ class StaticArray:
 
     def get_min_value(self):
         # TC : O(1)
-        # TODO: @Chinthan
-        pass
+        if self.occupied_size == 0:
+            return None
+        return self.min_element
 
     def get_max_value(self):
         # TC : O(1)
-        # TODO: @Chinthan
-        pass
+        if self.occupied_size == 0:
+            return None
+        return self.max_element
 
     def get_occurance_of_value(self, value):
         # TC : O(N)
-        # TODO: @Chinthan
-        pass
+        element_occurance_count = 0
+        for element in self.array:
+            if element == value:
+                element_occurance_count += 1
+        return element_occurance_count
+
 
 def main():
-    # Example usage of CustomArray
+    # Example usage of StaticArray
 
-    # Create an instance of CustomArray with a size of 5
-    custom_array = StaticArray(size=5)
+    # Create an instance of StaticArray with an initial size of 5
+    static_array = StaticArray(size=5)
 
     # Insert elements into the array
-    custom_array.insert(element="A", index=0)
-    custom_array.insert(element="B", index=2)
-    custom_array.insert(element="C", index=4)
+    static_array.insert(element=10, index=0)
+    static_array.insert(element=20, index=1)
+    static_array.insert(element=30, index=2)
 
     # Display the current state of the array
-    print("Array after insertion:", custom_array.fetch_array())
-
-    # Delete an element from the array
-    custom_array.delete(index=2)
-
-    # Display the array after deletion
-    print("Array after deletion:", custom_array.fetch_array())
-
-    # Get an element from the array
-    index_to_get = 0
-    element_at_index = custom_array.get(index=index_to_get)
-    if element_at_index is not None:
-        print(f"Element at index {index_to_get}: {element_at_index}")
+    print("Array after insertion:", static_array.fetch_array())
 
     # Check if the array is empty or full
-    print(f"Is the array empty? {custom_array.is_empty()}")
-    print(f"Is the array full? {custom_array.is_full()}")
+    print(f"Is the array empty? {static_array.is_empty()}")
+    print(f"Is the array full? {static_array.is_full()}")
 
+    # Fetch the minimum and maximum values
+    print(f"Minimum value in the array: {static_array.get_min_value()}")
+    print(f"Maximum value in the array: {static_array.get_max_value()}")
+
+    # Get the occurrence of a specific value
+    value_to_check = 20
+    occurrence_count = static_array.get_occurance_of_value(value_to_check)
+    print(f"Occurrence count of {value_to_check}: {occurrence_count}")
+
+    # Delete an element from the array
+    index_to_delete = 1
+    static_array.delete(index=index_to_delete)
+
+    # Display the array after deletion
+    print(f"Array after deleting element at index {index_to_delete}:", static_array.fetch_array())
 
 if __name__ == "__main__":
     main()
+
