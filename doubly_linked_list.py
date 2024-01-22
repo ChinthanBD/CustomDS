@@ -20,37 +20,21 @@ class DoublyLinkedList:
         if not value:
             return False
 
-        head = self.fetch_head()
         tail = self.fetch_tail()
-
-        if self.node_count == 0:
-            new_node = Node(key=None, value=value, next_node=None, prev_node=None)
-            new_node.next_node = head.next_node
-            new_node.prev_node = head.next_node.prev_node
-            head.next_node = new_node
-            tail.prev_node = new_node
-
-            self.node_count += 1
-            return True
-        else:
-            new_node = Node(key=None, value=value, next_node=None, prev_node=tail)
-
-            new_node.prev_node = tail.prev_node
-            tail.prev_node.next_node = new_node
-            new_node.next_node = tail
-            tail.prev_node = new_node
-            self.node_count += 1
-            return True
+        new_node = Node(key=None, value=value, next_node=tail, prev_node=tail.prev_node)
+        tail.prev_node.next_node = new_node
+        tail.prev_node = new_node
+        self.node_count += 1
+        return True
 
     def delete(self, value):
         temp = self.fetch_head()
-        #[1]
+        if not value:
+            return False
         while temp:
             if temp.value == value:
-                if temp.prev_node:
-                    temp.prev_node.next_node = temp.next_node
-                if temp.next_node:
-                    temp.next_node.prev_node = temp.prev_node
+                temp.prev_node.next_node = temp.next_node
+                temp.next_node.prev_node = temp.prev_node
                 self.node_count -= 1
                 return True
             temp = temp.next_node
@@ -89,25 +73,67 @@ class DoublyLinkedList:
 
 
 def main():
-    # Creating a Doubly Linked List
-    doubly_linked_list = DoublyLinkedList()
+    # Positive Scenario
+    dll = DoublyLinkedList()
 
-    # Inserting nodes into the linked list
-    doubly_linked_list.add(10)
-    doubly_linked_list.add(20)
-    doubly_linked_list.add(30)
+    # Adding elements
+    dll.add(10)
+    dll.add(20)
+    dll.add(30)
 
-    # Displaying the initial state of the linked list
+    # Printing the doubly linked list
     print("Doubly Linked List:")
-    doubly_linked_list.print_doubly_linked_list()
+    dll.print_doubly_linked_list()  # Output: 10 <-> 20 <-> 30 <-> None
 
-    # Deleting a node from the linked list
-    value_to_delete = 20
-    doubly_linked_list.delete(value_to_delete)
+    # Deleting an element
+    deleted_value = 20
+    if dll.delete(deleted_value):
+        print(f"{deleted_value} deleted successfully.")
+    else:
+        print(f"{deleted_value} not found in the list.")
+    # Output after deletion: 10 <-> 30 <-> None
+    print("Doubly Linked List after deletion:")
+    dll.print_doubly_linked_list()
 
-    # Displaying the linked list after deletion
-    print(f"\nDoubly Linked List after deleting node with value {value_to_delete}:")
-    doubly_linked_list.print_doubly_linked_list()
+    # Getting position of an element
+    element_to_find = 30
+    position = dll.get_position(element_to_find)
+    if position != -1:
+        print(f"{element_to_find} found at position {position}.")
+    else:
+        print(f"{element_to_find} not found in the list.")
+
+    # Getting element at a position
+    position_to_get = 2
+    value_at_position = dll.get_element(position_to_get)
+    if value_at_position is not None:
+        print(f"Element at position {position_to_get}: {value_at_position}")
+    else:
+        print(f"No element found at position {position_to_get}.")
+
+    # Negative Scenario
+    # Deleting an element not in the list
+    deleted_value_not_in_list = 40
+    if dll.delete(deleted_value_not_in_list):
+        print(f"{deleted_value_not_in_list} deleted successfully.")
+    else:
+        print(f"{deleted_value_not_in_list} not found in the list.")
+
+    # Getting position of an element not in the list
+    element_to_find_not_in_list = 50
+    position_not_in_list = dll.get_position(element_to_find_not_in_list)
+    if position_not_in_list != -1:
+        print(f"{element_to_find_not_in_list} found at position {position_not_in_list}.")
+    else:
+        print(f"{element_to_find_not_in_list} not found in the list.")
+
+    # Getting element at an invalid position
+    invalid_position = 5
+    value_at_invalid_position = dll.get_element(invalid_position)
+    if value_at_invalid_position is not None:
+        print(f"Element at position {invalid_position}: {value_at_invalid_position}")
+    else:
+        print(f"No element found at position {invalid_position}.")
 
 
 if __name__ == "__main__":
