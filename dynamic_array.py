@@ -63,6 +63,8 @@ class DynamicArray:
         # TC : O(N)
         return self.array.get_occurance_of_value(value)
 
+    def fetch_size(self):
+        return self.array.fetch_size()
 
 def main():
     # Example usage of DynamicArray

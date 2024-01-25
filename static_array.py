@@ -88,6 +88,9 @@ class StaticArray:
                 element_occurance_count += 1
         return element_occurance_count
 
+    def fetch_size(self):
+        return self.occupied_size
+
 
 def main():
     # Example usage of StaticArray
