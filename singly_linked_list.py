@@ -12,14 +12,15 @@ class SinglyLinkedList:
         return self.head.fetch_tail()
 
     def add_node(self, value):
-        return self.head.add_node(value)
+        return self.head.add(value)
 
     def delete_node(self, value):
-        return self.head.delete_node(value)
+        return self.head.delete(value)
 
     def print_singly_linked_list(self):
         temp = self.fetch_head()
-        while temp:
+        temp = temp.next_node
+        while temp.value:
             print(temp.value, '->', end='')
             temp = temp.next_node
         print('None')
