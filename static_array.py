@@ -17,7 +17,7 @@ class StaticArray:
                 raise TypeError("Type of the index provided is not int")
             if self.size <= index < 0:
                 raise IndexError("Given array index is out of range")
-            if not self.array[index]:
+            if self.array[index] is None:
                 self.occupied_size += 1
             self.array[index] = element
             if element:
