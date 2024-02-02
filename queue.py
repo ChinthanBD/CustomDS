@@ -1,7 +1,7 @@
 from dynamic_array import DynamicArray
 
 class Queue:
-    def __init__(self, size):
+    def __init__(self):
         self.array = DynamicArray()
         self.left = 0
         self.right = 0
@@ -15,46 +15,34 @@ class Queue:
         if self.left == self.right:
             self.right = 0
             self.left = 0
-            return False
+            return None
+        element = self.array.get(self.left)
         self.array.delete(self.left)
         self.left += 1
-        return True
+        return element
 
     def fetch_total_elements(self):
         return self.right - self.left
 
+
 def main():
-    # Create a queue with a specified size
-    queue_size = 15
-    my_queue = Queue(queue_size)
+    queue = Queue()
 
-    # Push elements into the queue
-    for i in range(1, queue_size + 2):
-        if not my_queue.push(i):
-            print("Queue is full, cannot push element", i)
-        else:
-            print("Element", i, "pushed into the queue")
+    # Adding elements to the queue
+    queue.push(5)
+    queue.push(10)
+    queue.push(15)
 
-    # Pop elements from the queue
-    for _ in range(queue_size + 1):
-        if not my_queue.pop():
-            print("Queue is empty, cannot pop element")
-        else:
-            print("Element popped from the queue")
+    # Printing total elements in the queue
+    print("Total elements in the queue:", queue.fetch_total_elements())
 
-    # Push more elements to see if the queue handles overflow correctly
-    for i in range(6, 10):
-        if not my_queue.push(i):
-            print("Queue is full, cannot push element", i)
-        else:
-            print("Element", i, "pushed into the queue")
+    # Removing elements from the queue
+    print("Popped element:", queue.pop())
+    print("Popped element:", queue.pop())
 
-    # Pop elements from the queue
-    for _ in range(queue_size):
-        if not my_queue.pop():
-            print("Queue is empty, cannot pop element")
-        else:
-            print("Element popped from the queue")
+    # Printing total elements in the queue after popping
+    print("Total elements in the queue after popping:", queue.fetch_total_elements())
+
 
 if __name__ == "__main__":
     main()
