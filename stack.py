@@ -3,7 +3,7 @@ from static_array import StaticArray
 
 class Stack:
     def __init__(self, size):
-        # TC: O(1)
+        # TC: O(size):
         self.size = size
         self.array = StaticArray(size)
         self.occupied_size = 0
@@ -20,15 +20,24 @@ class Stack:
         # TC: O(1)
         if self.occupied_size == 0:
             return False
-        self.array.delete(self.occupied_size)
+        element = self.array.get(self.occupied_size-1)
+        self.array.delete(self.occupied_size-1)
         self.occupied_size -= 1
+        return element
 
     def peek(self):
         # TC: O(1)
-        if self.occupied_size == 0:
+        if self.occupied_size < 0:
             return None
-        return self.array.get(self.occupied_size)
+        return self.array.get(self.occupied_size-1)
 
+    def fetch_total_elements(self):
+        return self.occupied_size
+
+    def is_empty(self):
+        if self.occupied_size == 0:
+            return True
+        return False
 
 def main():
     # Create a stack with size 5
