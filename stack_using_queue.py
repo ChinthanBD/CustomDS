@@ -19,7 +19,7 @@ class StackUsingQueue:
         for i in range(self.queue1.fetch_total_elements()-1):
             self.queue2.push(self.queue1.pop())
         element = self.queue1.pop()
-        self.queue1 = self.queue2
+        self.queue1, self.queue2 = self.queue2, self.queue1
         return element
 
 
