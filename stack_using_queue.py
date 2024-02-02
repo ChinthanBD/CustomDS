@@ -20,6 +20,7 @@ class StackUsingQueue:
             self.queue2.push(self.queue1.pop())
         element = self.queue1.pop()
         self.queue1 = self.queue2
+        self.queue2 = Queue()
         return element
 
 
