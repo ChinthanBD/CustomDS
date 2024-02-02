@@ -7,6 +7,8 @@ class Queue:
         self.right = 0
 
     def push(self, element):
+        # This implementation is wasting storage.
+        # IF we push 10 elements, pop 1, inserting another element (ie total size is still 10) makes array size to 20!
         self.array.append(element)
         self.right += 1
         return True
