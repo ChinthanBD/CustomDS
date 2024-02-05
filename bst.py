@@ -3,14 +3,14 @@ from tree_node import Node
 
 class BST:
     def __init__(self) -> None:
-        self.head = None
+        self.root = None
     
     def add_node(self, element):
-        if not self.head:
-            self.head = Node(element)
+        if not self.root:
+            self.root = Node(element)
             return True
         
-        temp = self.head
+        temp = self.root
         while temp:
             if element < temp.value:
                 if not temp.left:
@@ -44,10 +44,10 @@ class BST:
             print(temp.value)
             self.pre_order_traversal(temp.right)
 
-    def search_element(self, element):
-        if not self.head:
+    def search_node(self, element):
+        if not self.root:
             return None
-        temp = self.head
+        temp = self.root
         while temp:
             if temp.value == element:
                 return temp
@@ -57,6 +57,25 @@ class BST:
                 temp = temp.right
 
         return None
+    
+    def delete_node(self, element):
+        node = self.search_node(element)
+        if not node:
+            return None
+        if not node.right and node.left:
+            node.value = None
+        elif not node.right and node.left:
+            pass
+        else:
+            pass
+
+    def max_height(self, source, height=0):
+        temp = source
+        if not temp:
+            return height
+
+        height = max(height, self.max_height(temp.right, height+1), self.max_height(temp.left, height+1))
+        return height
 
 
 def main():
@@ -74,25 +93,34 @@ def main():
 
     # Pre-order Traversal
     print("Pre-order Traversal:")
-    bst.pre_order_traversal(bst.head)
+    bst.pre_order_traversal(bst.root)
 
     # In-order Traversal
     print("\nIn-order Traversal:")
-    bst.in_order_traversal(bst.head)
+    bst.in_order_traversal(bst.root)
 
     # Post-order Traversal
     print("\nPost-order Traversal:")
-    bst.post_order_traversal(bst.head)
+    bst.post_order_traversal(bst.root)
 
     # Searching for an element
-    element_to_search = 1201
-    result = bst.search_element(element_to_search)
+    element_to_search = 50
+    result = bst.search_node(element_to_search)
     if result:
         print(f"\nElement {element_to_search} found in the tree.")
     else:
         print(f"\nElement {element_to_search} not found in the tree.")
 
+    element_to_search = 1201
+    result = bst.search_node(element_to_search)
+    if result:
+        print(f"\nElement {element_to_search} found in the tree.")
+    else:
+        print(f"\nElement {element_to_search} not found in the tree.")
 
+    # Max height of the tree
+    height = bst.max_height(bst.root)
+    print(f"\nMax height of the tree: {height}")
 
 
 if __name__ == "__main__":
