@@ -44,6 +44,20 @@ class BST:
             print(temp.value)
             self.pre_order_traversal(temp.right)
 
+    def search_element(self, element):
+        if not self.head:
+            return None
+        temp = self.head
+        while temp:
+            if temp.value == element:
+                return temp
+            elif element < temp.value:
+                temp = temp.left
+            else:
+                temp = temp.right
+
+        return None
+
 
 def main():
     # Creating a Binary Search Tree object
@@ -69,6 +83,16 @@ def main():
     # Post-order Traversal
     print("\nPost-order Traversal:")
     bst.post_order_traversal(bst.head)
+
+    # Searching for an element
+    element_to_search = 1201
+    result = bst.search_element(element_to_search)
+    if result:
+        print(f"\nElement {element_to_search} found in the tree.")
+    else:
+        print(f"\nElement {element_to_search} not found in the tree.")
+
+
 
 
 if __name__ == "__main__":
