@@ -1,4 +1,11 @@
 from tree_node import Node
+from enum import Enum
+
+
+class TraversalType(Enum):
+    PRE_ORDER_TRAVERSAL = "preorder"
+    POST_ORDER_TRAVERSAL = "postorder"
+    IN_ORDER_TRAVERSAL = "inorder"
 
 
 class BST:
@@ -6,6 +13,10 @@ class BST:
         self.root = None
     
     def add_node(self, element):
+        '''
+        If any element is added which is already present(duplicate)
+        then it will be added to right child of the existing node
+        '''
         if not self.root:
             self.root = Node(element)
             return True
@@ -24,25 +35,25 @@ class BST:
                 temp = temp.right
     
     def pre_order_traversal(self, node):
-        temp = node
-        if temp:
-            print(temp.value)
-            self.pre_order_traversal(temp.left)
-            self.pre_order_traversal(temp.right)
-        
+        self._traverse(node, traversal_type=TraversalType.PRE_ORDER_TRAVERSAL.value)
+
     def post_order_traversal(self, node):
-        temp = node
-        if temp:
-            self.pre_order_traversal(temp.left)
-            self.pre_order_traversal(temp.right)
-            print(temp.value)
+        self._traverse(node, traversal_type=TraversalType.POST_ORDER_TRAVERSAL.value)
 
     def in_order_traversal(self, node):
-        temp = node
-        if temp:
-            self.pre_order_traversal(temp.left)
-            print(temp.value)
-            self.pre_order_traversal(temp.right)
+        self._traverse(node, traversal_type=TraversalType.IN_ORDER_TRAVERSAL.value)
+
+    def _traverse(self, node, traversal_type):
+        if not node:
+            return
+        if traversal_type == TraversalType.PRE_ORDER_TRAVERSAL.value:
+            print(node.value)
+        self._traverse(node.left, traversal_type)
+        if traversal_type == TraversalType.IN_ORDER_TRAVERSAL.value:
+            print(node.value)
+        self._traverse(node.right, traversal_type)
+        if traversal_type == TraversalType.POST_ORDER_TRAVERSAL.value:
+            print(node.value)
 
     def search_node(self, element):
         if not self.root:
@@ -57,25 +68,71 @@ class BST:
                 temp = temp.right
 
         return None
-    
+
     def delete_node(self, element):
-        node = self.search_node(element)
-        if not node:
-            return None
-        if not node.right and node.left:
-            node.value = None
-        elif not node.right and node.left:
-            pass
+        # Find the node to delete
+        current = self.root
+        parent = None
+        while current and current.value != element:
+            parent = current
+            if element < current.value:
+                current = current.left
+            else:
+                current = current.right
+
+        # If the node is not found, return
+        if current is None:
+            return
+
+        # Case 1: Node has no children
+        if not current.left and not current.right:
+            if current != self.root:
+                if parent.left == current:
+                    parent.left = None
+                else:
+                    parent.right = None
+            else:
+                self.root = None
+
+        # Case 2: Node has one child
+        elif current.left is None or current.right is None:
+            if current.left:
+                child = current.left
+            else:
+                child = current.right
+            if current != self.root:
+                if parent.left == current:
+                    parent.left = child
+                else:
+                    parent.right = child
+            else:
+                self.root = child
+
+        # Case 3: Node has two children
         else:
-            pass
+            # Find the inorder successor (the smallest node in the right subtree)
+            successor_parent = current
+            successor = current.right
+            while successor.left:
+                successor_parent = successor
+                successor = successor.left
 
-    def max_height(self, source, height=0):
-        temp = source
-        if not temp:
-            return height
+            # Replace the value of the node to be deleted with the value of the successor
+            current.value = successor.value
 
-        height = max(height, self.max_height(temp.right, height+1), self.max_height(temp.left, height+1))
-        return height
+            # Delete the successor (it has at most one right child)
+            if successor_parent.left == successor:
+                successor_parent.left = successor.right
+            else:
+                successor_parent.right = successor.right
+
+    def max_height_from_node(self, node=None):
+        if node is None:
+            return 0
+        else:
+            left_height = self.max_height_from_node(node.left)
+            right_height = self.max_height_from_node(node.right)
+            return max(left_height, right_height) + 1
 
 
 def main():
@@ -104,13 +161,6 @@ def main():
     bst.post_order_traversal(bst.root)
 
     # Searching for an element
-    element_to_search = 50
-    result = bst.search_node(element_to_search)
-    if result:
-        print(f"\nElement {element_to_search} found in the tree.")
-    else:
-        print(f"\nElement {element_to_search} not found in the tree.")
-
     element_to_search = 1201
     result = bst.search_node(element_to_search)
     if result:
@@ -119,9 +169,19 @@ def main():
         print(f"\nElement {element_to_search} not found in the tree.")
 
     # Max height of the tree
-    height = bst.max_height(bst.root)
+    height = bst.max_height_from_node(bst.root)
     print(f"\nMax height of the tree: {height}")
+
+    # Deleting a node
+    element_to_delete = 30
+    print(f"\nDeleting node with element {element_to_delete}:")
+    bst.delete_node(element_to_delete)
+
+    # In-order Traversal after deletion
+    print("\nIn-order Traversal after deletion:")
+    bst.in_order_traversal(bst.root)
 
 
 if __name__ == "__main__":
     main()
+
