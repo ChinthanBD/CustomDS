@@ -1,4 +1,6 @@
 from dynamic_array import DynamicArray
+
+
 class MinHeap:
     def __init__(self):
         self.array = DynamicArray(10)
@@ -10,10 +12,13 @@ class MinHeap:
     def delete(self):
         if self.array.is_empty():
             return False
-        self.swap_elements(0, self.array.fetch_size()-1)
-        self.array.current_index -= 1
-        self.array.size -= 1
+
+        last_index = self.array.fetch_size() - 1
+        self.swap_elements(0, last_index)
+
+        self.array.delete(last_index)
         self.heapify()
+
         return True
 
     def heapify(self):
@@ -24,7 +29,7 @@ class MinHeap:
             child_element = self.array.get(child_index)
             parent_element = self.array.get(parent_index)
 
-            if child_element is not None and parent_element is not None and child_element < parent_element:
+            if not child_element and not parent_element and child_element < parent_element:
                 self.swap_elements(parent_index, child_index)
 
                 child_index = parent_index
