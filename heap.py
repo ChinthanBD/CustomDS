@@ -29,7 +29,7 @@ class MinHeap:
             child_element = self.array.get(child_index)
             parent_element = self.array.get(parent_index)
 
-            if not child_element and not parent_element and child_element < parent_element:
+            if child_element is not None and parent_element is not None and child_element < parent_element:
                 self.swap_elements(parent_index, child_index)
 
                 child_index = parent_index

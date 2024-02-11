@@ -49,7 +49,7 @@ class DynamicArray:
 
     def fetch_array(self):
         # TC : O(1)
-        return self.array.fetch_array()
+        return [element for element in self.array.fetch_array() if element is not None]
 
     def get_min_value(self):
         # TC : O(1)
