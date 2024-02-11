@@ -17,8 +17,9 @@ class StaticArray:
                 raise TypeError("Type of the index provided is not int")
             if self.size <= index < 0:
                 raise IndexError("Given array index is out of range")
+            if self.array[index] is None:
+                self.occupied_size += 1
             self.array[index] = element
-            self.occupied_size += 1
             if element:
                 self.min_element = min(self.min_element, element)
                 self.max_element = max(self.max_element, element)
@@ -87,6 +88,9 @@ class StaticArray:
             if element == value:
                 element_occurance_count += 1
         return element_occurance_count
+
+    def fetch_size(self):
+        return self.occupied_size
 
 
 def main():
