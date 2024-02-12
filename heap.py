@@ -7,7 +7,7 @@ class MinHeap:
 
     def add(self, value):
         self.array.append(value)
-        self.heapify()
+        self.heapify_add()
 
     def delete(self):
         if self.array.is_empty():
@@ -17,11 +17,11 @@ class MinHeap:
         self.swap_elements(0, last_index)
 
         self.array.delete(last_index)
-        self.heapify()
+        self.heapify_delete()
 
         return True
 
-    def heapify(self):
+    def heapify_add(self):
         child_index = self.array.fetch_size() - 1
 
         while child_index > 0:
@@ -33,6 +33,27 @@ class MinHeap:
                 self.swap_elements(parent_index, child_index)
 
                 child_index = parent_index
+            else:
+                break
+
+    def heapify_delete(self):
+        index = 0
+
+        while True:
+            left_child_index = 2 * index + 1
+            right_child_index = 2 * index + 2
+            min_index = index
+
+            if left_child_index < self.array.fetch_size() and self.array.get(left_child_index) < self.array.get(
+                    min_index):
+                min_index = left_child_index
+            if right_child_index < self.array.fetch_size() and self.array.get(right_child_index) < self.array.get(
+                    min_index):
+                min_index = right_child_index
+
+            if min_index != index:
+                self.swap_elements(index, min_index)
+                index = min_index
             else:
                 break
 
