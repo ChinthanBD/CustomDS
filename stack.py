@@ -3,7 +3,7 @@ from static_array import StaticArray
 
 class Stack:
     def __init__(self, size):
-        # TC: O(1)
+        # TC: O(size):
         self.size = size
         self.array = StaticArray(size)
         self.occupied_size = 0
