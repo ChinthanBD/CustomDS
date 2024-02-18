@@ -1,12 +1,12 @@
 from collections import defaultdict
 
-class Graph:
+
+class DirectedGraph:
     def __init__(self) -> None:
         self.adjacency_list = defaultdict(list)
     
     def add_edge(self, u, v):
         self.adjacency_list[u].append(v)
-        self.adjacency_list[v].append(u)
         
     def dfs_traversal(self, source):
         stack = [source]
@@ -65,7 +65,7 @@ class Graph:
 
     
 def main():
-    graph = Graph()
+    graph = DirectedGraph()
 
     # Adding edges
     graph.add_edge(0, 1)
