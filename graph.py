@@ -8,7 +8,7 @@ class Graph:
         self.adjacency_list[u].append(v)
         self.adjacency_list[v].append(u)
         
-    def dfs(self, source):
+    def dfs_traversal(self, source):
         stack = [source]
         visited = set()
         traversal = []
@@ -22,7 +22,7 @@ class Graph:
                         stack.append(neighbour)
         return traversal
     
-    def bfs(self, source):
+    def bfs_traversal(self, source):
         queue = [source]
         visited = set()
         traversal = []
@@ -36,6 +36,34 @@ class Graph:
                         queue.append(neighbour)
         return traversal
 
+    def has_path_stack_dfs(self, source, dest):
+        stack = [source]
+        visited = set()
+        while stack:
+            vertex = stack.pop()
+            if vertex == dest:
+                return True
+            else:
+                if vertex not in visited:
+                    visited.add(vertex)
+                    for neighbour in reversed(self.adjacency_list[vertex]):
+                        stack.append(neighbour)
+        return False
+
+    def has_path_queue_bfs(self, source, dest):
+        queue = [source]
+        visited = set()
+        while queue:
+            vertex = queue.pop(0)
+            if vertex == dest:
+                return True
+            if vertex not in visited:
+                visited.add(vertex)
+                for neighbour in self.adjacency_list[vertex]:
+                    queue.append(neighbour)
+        return False
+
+    
 def main():
     graph = Graph()
 
@@ -46,10 +74,20 @@ def main():
     graph.add_edge(2, 4)
 
     # Depth First Search (DFS)
-    print("DFS Traversal:", graph.dfs(0))
+    print("DFS Traversal:", graph.dfs_traversal(0))
 
     # Breadth First Search (BFS)
-    print("BFS Traversal:", graph.bfs(0))
+    print("BFS Traversal:", graph.bfs_traversal(0))
+
+    # Check if there is a path between two vertices using DFS
+    print("Path between 0 and 3 exists (DFS)?", graph.has_path_stack_dfs(0, 3))
+    print("Path between 0 and 4 exists (DFS)?", graph.has_path_stack_dfs(0, 4))
+    print("Path between 5 and 4 exists (DFS)?", graph.has_path_stack_dfs(5, 4))
+
+    # Check if there is a path between two vertices using BFS
+    print("Path between 0 and 3 exists (BFS)?", graph.has_path_queue_bfs(0, 3))
+    print("Path between 0 and 4 exists (BFS)?", graph.has_path_queue_bfs(0, 4))
+    print("Path between 5 and 4 exists (BFS)?", graph.has_path_queue_bfs(5, 4))
 
 if __name__ == "__main__":
     main()
