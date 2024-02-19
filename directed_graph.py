@@ -23,44 +23,48 @@ class DirectedGraph:
         return traversal
     
     def bfs_traversal(self, source):
-        queue = [source]
+        queue = [(source, [source])]
         visited = set()
         traversal = []
         while queue:
-            vertex = queue.pop(0)
+            vertex, path = queue.pop(0)
             if vertex not in visited:
                 visited.add(vertex)
                 traversal.append(vertex)
                 for neighbour in self.adjacency_list[vertex]:
                     if neighbour not in visited:
-                        queue.append(neighbour)
+                        queue.append((neighbour, path + [neighbour]))
         return traversal
 
     def has_path_stack_dfs(self, source, dest):
-        stack = [source]
+        stack = [(source, [source])]
         visited = set()
         while stack:
-            vertex = stack.pop()
+            vertex, path = stack.pop()
             if vertex == dest:
+                print("Path from", source, "to", dest, ":", "->".join(map(str, path)))
                 return True
             else:
                 if vertex not in visited:
                     visited.add(vertex)
                     for neighbour in reversed(self.adjacency_list[vertex]):
-                        stack.append(neighbour)
+                        stack.append((neighbour, path + [neighbour]))
+        print("No path from", source, "to", dest)
         return False
 
     def has_path_queue_bfs(self, source, dest):
-        queue = [source]
+        queue = [(source, [source])]
         visited = set()
         while queue:
-            vertex = queue.pop(0)
+            vertex, path = queue.pop(0)
             if vertex == dest:
+                print("Path from", source, "to", dest, ":", "->".join(map(str, path)))
                 return True
             if vertex not in visited:
                 visited.add(vertex)
                 for neighbour in self.adjacency_list[vertex]:
-                    queue.append(neighbour)
+                    queue.append((neighbour, path + [neighbour]))
+        print("No path from", source, "to", dest)
         return False
 
     
