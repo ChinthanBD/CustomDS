@@ -1,8 +1,8 @@
 from directed_graph import DirectedGraph
-
+from typing_extensions import overrides
 
 class UndirectedGraph(DirectedGraph):
-
+    @overrides
     def add_edge(self, u, v):
         self.adjacency_list[u].append(v)
         self.adjacency_list[v].append(u)
