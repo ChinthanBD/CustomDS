@@ -23,17 +23,17 @@ class DirectedGraph:
         return traversal
     
     def bfs_traversal(self, source):
-        queue = [(source, [source])]
+        queue = [source]
         visited = set()
         traversal = []
         while queue:
-            vertex, path = queue.pop(0)
+            vertex = queue.pop(0)
             if vertex not in visited:
                 visited.add(vertex)
                 traversal.append(vertex)
                 for neighbour in self.adjacency_list[vertex]:
                     if neighbour not in visited:
-                        queue.append((neighbour, path + [neighbour]))
+                        queue.append(neighbour)
         return traversal
 
     def has_path_stack_dfs(self, source, dest):
