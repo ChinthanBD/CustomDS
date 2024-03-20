@@ -1,12 +1,12 @@
 # https://www.codingninjas.com/studio/problems/implement-trie_631356?leftPanelTabValue=PROBLEM
 from sys import stdin, setrecursionlimit
 setrecursionlimit(10**7)
-
+# Recursion limit is given in the question mentioned above nothing to do with the implementation
 
 class Node:
     def __init__(self):
         self.links = [None] * 26
-        self.flag = False
+        self.end_of_word = False
 
 class Trie:
     def __init__(self):
@@ -19,7 +19,7 @@ class Trie:
             if not node.links[pos]:
                 node.links[pos] = Node()
             node = node.links[pos]
-        node.flag = True
+        node.end_of_word = True
 
     
     def search(self, word):
@@ -29,10 +29,8 @@ class Trie:
             if not node.links[pos]:
                 return False
             node = node.links[pos]
-
-        if node.flag == False:
-            return False
-        return True
+            
+        return node.end_of_word
 
         
     def startWith(self, prefix):
