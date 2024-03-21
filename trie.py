@@ -42,6 +42,27 @@ class Trie:
             node = node.links[pos]
         return True
 
+
+    def allWordsWithPrefix(self, prefix):
+        node = self.root
+        for char in prefix:
+            pos = ord(char) - ord('a')
+            if not node.links[pos]:
+                return []  # If the prefix does not exist in the Trie, return an empty list
+            node = node.links[pos]
+
+        words = []
+        self._collectWordsWithPrefix(node, prefix, words)
+        return words
+
+    def _collectWordsWithPrefix(self, node, prefix, words):
+        if node.end_of_word:
+            words.append(prefix)
+
+        for i, child in enumerate(node.links):
+            if child:
+                self._collectWordsWithPrefix(child, prefix + chr(i + ord('a')), words)
+
 def main():
     # Create a Trie instance
     trie = Trie()
@@ -66,6 +87,15 @@ def main():
             print("Some word in the Trie starts with", prefix)
         else:
             print("No word in the Trie starts with", prefix)
+
+# Test allWordsWithPrefix function
+    prefixes = ["app", "ban", "pea", "gr"]
+    for prefix in prefixes:
+        words = trie.allWordsWithPrefix(prefix)
+        if words:
+            print(prefix, "has words starting with it:", words)
+        else:
+            print(prefix, "does not have words starting with it")
 
 if __name__ == "__main__":
     main()
