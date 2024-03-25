@@ -1,7 +1,6 @@
 # https://www.codingninjas.com/studio/problems/implement-trie_631356?leftPanelTabValue=PROBLEM
 from sys import stdin, setrecursionlimit
 setrecursionlimit(10**7)
-# Recursion limit is given in the question mentioned above nothing to do with the implementation
 
 class Node:
     def __init__(self):
